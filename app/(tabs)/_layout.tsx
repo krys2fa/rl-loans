@@ -1,43 +1,81 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
-
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Tabs } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
+        tabBarInactiveTintColor: "#00060c",
+      }}
+    >
       <Tabs.Screen
-        name="index"
+        name='index'
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: "Home",
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "easel-sharp" : "easel-outline"}
+              color={color}
+              size={24}
+            />
+          ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name='apply'
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: "Apply",
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={
+                // focused ? "information-circle" : "information-circle-outline"
+                focused ? "id-card-sharp" : "id-card-outline"
+              }
+              color={color}
+              size={24}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name='pay'
+        options={{
+          title: "Pay Loan",
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "receipt-sharp" : "receipt-sharp"}
+              color={color}
+              size={24}
+            />
+          ),
+        }}
+      />
+      {/* <Tabs.Screen
+        name='withdraw'
+        options={{
+          title: "Withdraw",
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "wallet-sharp" : "wallet-sharp"}
+              color={color}
+              size={24}
+            />
+          ),
+        }}
+      /> */}
+
+      <Tabs.Screen
+        name='settings'
+        options={{
+          title: "Settings",
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "cog-sharp" : "cog-outline"}
+              color={color}
+              size={24}
+            />
+          ),
         }}
       />
     </Tabs>

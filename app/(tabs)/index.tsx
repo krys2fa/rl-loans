@@ -1,74 +1,108 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Link } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const transactions = [
+  {
+    label: "Loan History",
+    icon: "document-text-outline",
+    route: "/loan-history",
+  },
+  {
+    label: "Payment Schedule",
+    icon: "calendar-outline",
+    route: "/payment-schedule",
+  },
+  { label: "Payments", icon: "cash-outline", route: "/payments" },
+  { label: "Withdrawals", icon: "wallet-outline", route: "/withdrawals" },
+  { label: "Customer Support", icon: "headset-outline", route: "/support" },
+];
 
-export default function HomeScreen() {
+export default function Index() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <View style={styles.container}>
+      <View style={styles.info}>
+        <Text style={styles.infoText}>Current Loan</Text>
+        <Text style={styles.infoText}>GHS 0</Text>
+        <Text style={styles.infoLabel}>Monthly payment</Text>
+        <Text style={styles.infoDesc}>No upcoming payments</Text>
+      </View>
+
+      <Text style={styles.heading}>Transactions</Text>
+
+      <View style={styles.itemsContainer}>
+        {transactions.map((item, index) => (
+          <Link key={index} href={item.route} asChild>
+            <TouchableOpacity style={styles.item}>
+              <Ionicons name={item.icon} size={20} />
+              <Text style={styles.itemsText}>{item.label}</Text>
+            </TouchableOpacity>
+          </Link>
+        ))}
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
+    backgroundColor: "#fafafa",
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  info: {
+    backgroundColor: "#1e88e5",
+    borderRadius: 15,
+    padding: 10,
+    margin: 10,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  infoText: {
+    color: "#fafafa",
+    fontSize: 20,
+    fontWeight: "bold",
+    padding: 5,
+    fontFamily: "Inter",
+  },
+  infoLabel: {
+    color: "#fafafa",
+    fontSize: 15,
+    padding: 5,
+    fontWeight: "bold",
+    marginTop: 20,
+    fontFamily: "Quicksand",
+  },
+  infoDesc: {
+    color: "#fafafa",
+    fontSize: 14,
+    padding: 5,
+    fontFamily: "Quicksand",
+  },
+  heading: {
+    fontSize: 20,
+    fontWeight: "bold",
+    padding: 10,
+    color: "#00060c",
+    fontFamily: "Inter",
+  },
+  itemsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    padding: 10,
+  },
+  item: {
+    alignItems: "center",
+    width: "45%",
+    padding: 20,
+    margin: 5,
+    backgroundColor: "#e6e5e8",
+    borderRadius: 10,
+  },
+  itemsText: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "#00060c",
+    marginLeft: 10,
+    padding: 10,
+    fontFamily: "Quicksand",
   },
 });
