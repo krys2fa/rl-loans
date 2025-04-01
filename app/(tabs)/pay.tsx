@@ -5,14 +5,14 @@ import {
   TextInput,
   Button,
   StyleSheet,
-  Picker,
-  CheckBox,
   TouchableOpacity,
   Linking,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { Picker } from "@react-native-picker/picker";
+import CheckBox from "@react-native-community/checkbox";
 
-export default function LoanRepayment() {
+export default function Pay() {
   const [repaymentAmount, setRepaymentAmount] = useState("");
   const [loanType, setLoanType] = useState("Personal Loan");
   const [repaymentDate, setRepaymentDate] = useState(new Date());
@@ -86,7 +86,7 @@ export default function LoanRepayment() {
       )}
 
       <View style={styles.checkboxContainer}>
-        <CheckBox value={agreeToTerms} onValueChange={setAgreeToTerms} />
+        {/* <CheckBox value={agreeToTerms} onValueChange={setAgreeToTerms} /> */}
         <Text
           style={styles.label}
           onPress={() => Linking.openURL("https://example.com/terms")}

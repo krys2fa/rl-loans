@@ -26,7 +26,7 @@ export default function SettingsScreen() {
 
       <View style={styles.profileSection}>
         <MaterialIcons name='account-circle' size={80} color='#1e88e5' />
-        <Text style={styles.name}>Christopher Amanor</Text>
+        <Text style={styles.name}>Kwaku Mintah</Text>
       </View>
 
       <View style={styles.infoSection}>
