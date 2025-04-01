@@ -1,8 +1,13 @@
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Link } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 const transactions = [
+  {
+    label: "Credit Worthiness",
+    icon: "pulse-outline",
+    route: "/credit-check",
+  },
   {
     label: "Loan History",
     icon: "document-text-outline",
@@ -21,6 +26,18 @@ const transactions = [
 export default function Index() {
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Image
+          source={require("../../assets/images/rl-logo.png")}
+          style={styles.logo}
+        />
+        <Ionicons
+          name='notifications-outline'
+          size={24}
+          style={styles.notificationIcon}
+        />
+      </View>
+
       <View style={styles.info}>
         <Text style={styles.infoText}>Current Loan</Text>
         <Text style={styles.infoText}>GHS 0</Text>
@@ -48,6 +65,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fafafa",
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 10,
+  },
+  logo: {
+    width: 120,
+    height: 40,
+    resizeMode: "contain",
+  },
+  notificationIcon: {
+    color: "#1e88e5",
   },
   info: {
     backgroundColor: "#1e88e5",
