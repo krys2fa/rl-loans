@@ -11,16 +11,16 @@ import {
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
-import CheckBox from "@react-native-community/checkbox";
+import { CheckBox } from "react-native";
 
 export default function Apply() {
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(0);
   const [repaymentPeriod, setRepaymentPeriod] = useState("");
   const [loanType, setLoanType] = useState("Personal Loan");
   const [interestRate, setInterestRate] = useState("15%");
   const [repaymentDate, setRepaymentDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [installmentAmount, setInstallmentAmount] = useState("");
+  const [installmentAmount, setInstallmentAmount] = useState(0);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
 
   const loanOptions = [
@@ -34,7 +34,7 @@ export default function Apply() {
     },
   ];
 
-  const handleLoanTypeChange = (value) => {
+  const handleLoanTypeChange = (value: string) => {
     setLoanType(value);
     const selectedOption = loanOptions.find((option) => option.value === value);
     if (selectedOption) {
@@ -44,16 +44,21 @@ export default function Apply() {
     }
   };
 
-  const calculateInstallment = (amount, period) => {
+  const calculateInstallment = (amount: number, period: number) => {
     if (amount && period) {
-      const installment = (parseFloat(amount) / period).toFixed(2);
-      setInstallmentAmount(installment);
+      const installment = (amount / period).toFixed(2);
+      setInstallmentAmount(Number(installment));
     }
   };
 
-  const handleAmountChange = (value) => {
-    setAmount(value);
-    calculateInstallment(value, parseInt(repaymentPeriod));
+  const handleAmountChange = (value: string) => {
+    const numericValue = parseFloat(value);
+    if (!isNaN(numericValue)) {
+      setAmount(numericValue);
+      calculateInstallment(numericValue, parseInt(repaymentPeriod));
+    } else {
+      setAmount(0);
+    }
   };
 
   const handleApply = () => {
@@ -66,12 +71,13 @@ export default function Apply() {
         repaymentDate,
         installmentAmount,
       });
+      alert("Applying....");
     } else {
       alert("Please agree to the terms and conditions.");
     }
   };
 
-  const onChangeDate = (event, selectedDate) => {
+  const onChangeDate = (event: any, selectedDate: any) => {
     const currentDate = selectedDate || repaymentDate;
     setShowDatePicker(Platform.OS === "ios");
     if (currentDate > new Date()) {
@@ -84,24 +90,6 @@ export default function Apply() {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Loan Application</Text>
-      <Text style={styles.label}>Amount</Text>
-      <TextInput
-        style={styles.input}
-        placeholder='Enter loan amount'
-        keyboardType='numeric'
-        value={amount}
-        onChangeText={handleAmountChange}
-      />
-
-      <Text style={styles.label}>Repayment Period</Text>
-      <TextInput
-        style={styles.input}
-        placeholder='Enter period (months)'
-        keyboardType='numeric'
-        value={repaymentPeriod}
-        editable={false}
-      />
-
       <Text style={styles.label}>Loan Type</Text>
       <Picker
         selectedValue={loanType}
@@ -116,6 +104,23 @@ export default function Apply() {
           />
         ))}
       </Picker>
+
+      <TextInput
+        style={styles.input}
+        placeholder='Enter loan amount'
+        keyboardType='numeric'
+        value={amount.toString()}
+        onChangeText={handleAmountChange}
+      />
+
+      <Text style={styles.label}>Repayment Period</Text>
+      <TextInput
+        style={styles.input}
+        placeholder='Enter period (months)'
+        keyboardType='numeric'
+        value={repaymentPeriod}
+        editable={false}
+      />
 
       <Text style={styles.label}>Interest Rate</Text>
       <TextInput style={styles.input} value={interestRate} editable={false} />
@@ -141,12 +146,12 @@ export default function Apply() {
       <Text style={styles.label}>Installment Amount</Text>
       <TextInput
         style={styles.input}
-        value={installmentAmount}
+        value={installmentAmount.toString()}
         editable={false}
       />
 
       <View style={styles.checkboxContainer}>
-        {/* <CheckBox value={agreeToTerms} onValueChange={setAgreeToTerms} /> */}
+        <CheckBox value={agreeToTerms} onValueChange={setAgreeToTerms} />
         <Text
           style={styles.label}
           onPress={() => Linking.openURL("https://example.com/terms")}

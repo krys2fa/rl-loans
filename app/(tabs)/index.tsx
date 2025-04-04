@@ -6,21 +6,21 @@ const transactions = [
   {
     label: "Credit Worthiness",
     icon: "pulse-outline",
-    route: "/credit-check",
+    route: "../credit-check",
   },
   {
     label: "Loan History",
     icon: "document-text-outline",
-    route: "/loan-history",
+    route: "../loan-history",
   },
   {
     label: "Payment Schedule",
     icon: "calendar-outline",
-    route: "/payment-schedule",
+    route: "../payment-schedule",
   },
-  { label: "Payments", icon: "cash-outline", route: "/payments" },
-  { label: "Withdrawals", icon: "wallet-outline", route: "/withdrawals" },
-  { label: "Customer Support", icon: "headset-outline", route: "/support" },
+  { label: "Payments", icon: "cash-outline", route: "../payments" },
+  { label: "Withdrawals", icon: "wallet-outline", route: "../withdrawals" },
+  { label: "Customer Support", icon: "headset-outline", route: "../support" },
 ];
 
 export default function Index() {

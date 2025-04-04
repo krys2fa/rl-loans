@@ -25,6 +25,30 @@ export default function RootLayout() {
   return (
     <Stack>
       <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+      <Stack.Screen
+        name='credit-check'
+        options={{ headerShown: true, headerTitle: "" }}
+      />
+      <Stack.Screen
+        name='loan-history'
+        options={{ headerShown: true, headerTitle: "" }}
+      />
+      <Stack.Screen
+        name='payment-schedule'
+        options={{ headerShown: true, headerTitle: "" }}
+      />
+      <Stack.Screen
+        name='payments'
+        options={{ headerShown: true, headerTitle: "" }}
+      />
+      <Stack.Screen
+        name='support'
+        options={{ headerShown: true, headerTitle: "" }}
+      />
+      <Stack.Screen
+        name='withdrawals'
+        options={{ headerShown: true, headerTitle: "" }}
+      />
       <Stack.Screen name='+not-found' />
     </Stack>
   );

@@ -10,10 +10,10 @@ import {
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
-import CheckBox from "@react-native-community/checkbox";
+import { CheckBox } from "react-native";
 
 export default function Pay() {
-  const [repaymentAmount, setRepaymentAmount] = useState("");
+  const [repaymentAmount, setRepaymentAmount] = useState("0"); // Start as string to handle empty input
   const [loanType, setLoanType] = useState("Personal Loan");
   const [repaymentDate, setRepaymentDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -27,15 +27,23 @@ export default function Pay() {
 
   const handleLoanTypeChange = (value) => setLoanType(value);
 
-  const onChangeDate = (event, selectedDate) => {
+  const handleRepaymentDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || repaymentDate;
     setShowDatePicker(false);
     setRepaymentDate(currentDate);
   };
 
-  const handleRepayment = () => {
+  const handleRepaymentAmountChange = (amount) => {
+    // Only allow numeric input (including decimal points)
+    if (/^\d*\.?\d*$/.test(amount)) {
+      setRepaymentAmount(amount);
+    }
+  };
+
+  const handleRepaymentSubmit = () => {
     if (agreeToTerms) {
       console.log({ repaymentAmount, loanType, repaymentDate });
+      alert("Repaying now...");
     } else {
       alert("Please agree to the terms and conditions.");
     }
@@ -44,6 +52,7 @@ export default function Pay() {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Loan Repayment</Text>
+
       <Text style={styles.label}>Loan Type</Text>
       <Picker
         selectedValue={loanType}
@@ -64,7 +73,7 @@ export default function Pay() {
         style={styles.input}
         placeholder='Enter amount'
         keyboardType='numeric'
-        onChangeText={setRepaymentAmount}
+        onChangeText={handleRepaymentAmountChange}
         value={repaymentAmount}
       />
 
@@ -81,26 +90,24 @@ export default function Pay() {
           value={repaymentDate}
           mode='date'
           display='default'
-          onChange={onChangeDate}
+          onChange={handleRepaymentDateChange}
         />
       )}
 
       <View style={styles.checkboxContainer}>
-        {/* <CheckBox value={agreeToTerms} onValueChange={setAgreeToTerms} /> */}
+        <CheckBox value={agreeToTerms} onValueChange={setAgreeToTerms} />
         <Text
           style={styles.label}
           onPress={() => Linking.openURL("https://example.com/terms")}
         >
           I agree to the{" "}
-          <Text style={{ color: "#1e88e5", textDecorationLine: "underline" }}>
-            terms and conditions
-          </Text>
+          <Text style={styles.termsLink}>terms and conditions</Text>
         </Text>
       </View>
 
       <Button
         title='Repay Now'
-        onPress={handleRepayment}
+        onPress={handleRepaymentSubmit}
         color='#1e88e5'
         style={styles.button}
       />
@@ -135,5 +142,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 15,
   },
-  button: { borderRadius: 25, padding: 15, marginTop: 10 },
+  termsLink: {
+    color: "#1e88e5",
+    textDecorationLine: "underline",
+  },
+  button: {
+    borderRadius: 25,
+    padding: 15,
+    marginTop: 10,
+  },
 });
