@@ -10,10 +10,10 @@ import {
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
-import { CheckBox } from "react-native";
+import { Checkbox } from "react-native-paper";
 
 export default function Pay() {
-  const [repaymentAmount, setRepaymentAmount] = useState("0"); // Start as string to handle empty input
+  const [repaymentAmount, setRepaymentAmount] = useState("0");
   const [loanType, setLoanType] = useState("Personal Loan");
   const [repaymentDate, setRepaymentDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -25,15 +25,15 @@ export default function Pay() {
     { label: "Education Loan", value: "Education Loan" },
   ];
 
-  const handleLoanTypeChange = (value) => setLoanType(value);
+  const handleLoanTypeChange = (value: any) => setLoanType(value);
 
-  const handleRepaymentDateChange = (event, selectedDate) => {
+  const handleRepaymentDateChange = (event: any, selectedDate: any) => {
     const currentDate = selectedDate || repaymentDate;
     setShowDatePicker(false);
     setRepaymentDate(currentDate);
   };
 
-  const handleRepaymentAmountChange = (amount) => {
+  const handleRepaymentAmountChange = (amount: any) => {
     // Only allow numeric input (including decimal points)
     if (/^\d*\.?\d*$/.test(amount)) {
       setRepaymentAmount(amount);
@@ -95,7 +95,11 @@ export default function Pay() {
       )}
 
       <View style={styles.checkboxContainer}>
-        <CheckBox value={agreeToTerms} onValueChange={setAgreeToTerms} />
+        <Checkbox
+          status={agreeToTerms ? "checked" : "unchecked"}
+          onPress={() => setAgreeToTerms(!agreeToTerms)}
+        />
+
         <Text
           style={styles.label}
           onPress={() => Linking.openURL("https://example.com/terms")}

@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
-import { CheckBox } from "react-native";
+import { Checkbox } from "react-native-paper";
 
 export default function Apply() {
   const [amount, setAmount] = useState(0);
@@ -151,7 +151,10 @@ export default function Apply() {
       />
 
       <View style={styles.checkboxContainer}>
-        <CheckBox value={agreeToTerms} onValueChange={setAgreeToTerms} />
+        <Checkbox
+          status={agreeToTerms ? "checked" : "unchecked"}
+          onPress={() => setAgreeToTerms(!agreeToTerms)}
+        />
         <Text
           style={styles.label}
           onPress={() => Linking.openURL("https://example.com/terms")}
