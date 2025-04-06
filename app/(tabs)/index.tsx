@@ -39,10 +39,28 @@ export default function Index() {
       </View>
 
       <View style={styles.info}>
-        <Text style={styles.infoText}>Current Loan</Text>
-        <Text style={styles.infoText}>GHS 0</Text>
-        <Text style={styles.infoLabel}>Monthly payment</Text>
-        <Text style={styles.infoDesc}>No upcoming payments</Text>
+        <Ionicons name='card' size={120} color='#e6e5e8' />
+        <View>
+          <Text style={styles.infoText}>Current Loan</Text>
+          <Text style={styles.infoText}>GHS 0</Text>
+          <Text style={styles.infoLabel}>Monthly payment</Text>
+          <Text style={styles.infoDesc}>No upcoming payments</Text>
+        </View>
+      </View>
+
+      <View style={styles.tiles}>
+        <View style={styles.tilesItem}>
+          <Text>Outstanding Balance</Text>
+          <Text style={styles.tileText}>GHS 0</Text>
+        </View>
+        <View style={styles.tilesItem}>
+          <Text>Next Payment Due</Text>
+          <Text style={styles.tileText}>-</Text>
+        </View>
+        <View style={styles.tilesItem}>
+          <Text>Loan Limit Available</Text>
+          <Text style={styles.tileText}>GHS 5, 000</Text>
+        </View>
       </View>
 
       <Text style={styles.heading}>Transactions</Text>
@@ -81,6 +99,7 @@ const styles = StyleSheet.create({
     color: "#1e88e5",
   },
   info: {
+    flexDirection: "row",
     backgroundColor: "#1e88e5",
     borderRadius: 15,
     padding: 10,
@@ -98,13 +117,31 @@ const styles = StyleSheet.create({
     fontSize: 15,
     padding: 5,
     fontWeight: "bold",
-    marginTop: 20,
     fontFamily: "Quicksand",
   },
   infoDesc: {
     color: "#fafafa",
     fontSize: 14,
     padding: 5,
+    fontFamily: "Quicksand",
+  },
+  tiles: {
+    flexWrap: "wrap",
+    padding: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderRadius: 15,
+  },
+  tilesItem: {
+    justifyContent: "center",
+    backgroundColor: "#e6e5e8",
+    padding: 10,
+    borderRadius: 15,
+  },
+  tileText: {
+    margin: "auto",
+    padding: 10,
+    fontWeight: "bold",
     fontFamily: "Quicksand",
   },
   heading: {
