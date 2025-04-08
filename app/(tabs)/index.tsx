@@ -4,7 +4,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 
 const transactions = [
   {
-    label: "Credit Worthiness",
+    label: "Credit Worthiness Check",
     icon: "pulse-outline",
     route: "../credit-check",
   },
@@ -43,7 +43,7 @@ export default function Index() {
         <View>
           <Text style={styles.infoText}>Current Loan</Text>
           <Text style={styles.infoText}>GHS 0</Text>
-          <Text style={styles.infoLabel}>Monthly payment</Text>
+          <Text style={styles.infoLabel}>Next payment due</Text>
           <Text style={styles.infoDesc}>No upcoming payments</Text>
         </View>
       </View>
@@ -54,12 +54,12 @@ export default function Index() {
           <Text style={styles.tileText}>GHS 0</Text>
         </View>
         <View style={styles.tilesItem}>
-          <Text>Next Payment Due</Text>
-          <Text style={styles.tileText}>-</Text>
-        </View>
-        <View style={styles.tilesItem}>
           <Text>Loan Limit Available</Text>
           <Text style={styles.tileText}>GHS 5, 000</Text>
+        </View>
+        <View style={styles.tilesItem}>
+          <Text>Credit Score</Text>
+          <Text style={styles.tileText}>42</Text>
         </View>
       </View>
 
