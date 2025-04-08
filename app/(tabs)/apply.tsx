@@ -12,8 +12,10 @@ import {
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
 import { Checkbox } from "react-native-paper";
+import useProtectedRoute from "../../hooks/useProtectedRoute";
 
 export default function Apply() {
+  useProtectedRoute();
   const [amount, setAmount] = useState(0);
   const [repaymentPeriod, setRepaymentPeriod] = useState("");
   const [loanType, setLoanType] = useState("Personal Loan");

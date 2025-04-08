@@ -11,7 +11,6 @@ import Animated, {
   Layout,
   FadeInDown,
   FadeOutUp,
-  SlideInUp,
 } from "react-native-reanimated";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -352,41 +351,6 @@ export default function QuestionnaireForm() {
         layout={Layout.springify()}
         style={styles.questionsWrapper}
       >
-        {/* {Object.entries(currentQuestions).map(([question, options]) => (
-          <Animated.View
-            key={question}
-            entering={FadeInDown.duration(400)}
-            exiting={FadeOutUp.duration(300)}
-            style={styles.card}
-          >
-            <Text style={styles.questionText}>
-              {question.replace(/_/g, " ")}
-            </Text>
-            <View style={styles.optionsGrid}>
-              {Object.keys(options).map((option) => (
-                <Pressable
-                  key={option}
-                  style={[
-                    styles.optionButton,
-                    responses[question] === option && styles.optionSelected,
-                  ]}
-                  onPress={() => handleChange(question, option)}
-                >
-                  <Text
-                    style={
-                      responses[question] === option
-                        ? styles.optionTextSelected
-                        : styles.optionText
-                    }
-                  >
-                    {option}
-                  </Text>
-                </Pressable>
-              ))}
-            </View>
-          </Animated.View>
-        ))} */}
-
         {Object.entries(currentQuestions).map(
           ([questionKey, { question, options }]) => (
             <Animated.View
@@ -443,6 +407,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
+    fontFamily: "Quicksand",
   },
   questionsWrapper: {
     gap: 16,
@@ -458,6 +423,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     marginBottom: 10,
+    fontFamily: "Quicksand",
   },
   optionsGrid: {
     flexDirection: "row",
@@ -473,21 +439,23 @@ const styles = StyleSheet.create({
     margin: 4,
   },
   optionSelected: {
-    backgroundColor: "#4F46E5",
-    borderColor: "#4F46E5",
+    backgroundColor: "#1e88e5",
+    borderColor: "#1e88e5",
   },
   optionText: {
     color: "#333",
+    fontFamily: "Quicksand",
   },
   optionTextSelected: {
     color: "#fff",
+    fontFamily: "Quicksand",
   },
   footer: {
     marginTop: 20,
     alignItems: "flex-end",
   },
   nextButton: {
-    backgroundColor: "#4F46E5",
+    backgroundColor: "#1e88e5",
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 10,
@@ -496,6 +464,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     fontSize: 16,
+    fontFamily: "Quicksand",
   },
   resultCard: {
     alignItems: "center",
@@ -508,6 +477,7 @@ const styles = StyleSheet.create({
   scoreText: {
     fontSize: 22,
     fontWeight: "bold",
+    fontFamily: "Quicksand",
   },
   finalScore: {
     marginTop: 10,
@@ -525,5 +495,6 @@ const styles = StyleSheet.create({
   retakeText: {
     color: "#fff",
     fontWeight: "bold",
+    fontFamily: "Quicksand",
   },
 });

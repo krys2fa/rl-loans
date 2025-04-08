@@ -1,10 +1,21 @@
-import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { Link } from "expo-router";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Pressable,
+  Alert,
+} from "react-native";
+import { Link, useRouter } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
+import useProtectedRoute from "../../hooks/useProtectedRoute";
 
 const transactions = [
   {
-    label: "Credit Worthiness Check",
+    label: "Creditworthiness",
     icon: "pulse-outline",
     route: "../credit-check",
   },
@@ -24,6 +35,17 @@ const transactions = [
 ];
 
 export default function Index() {
+  useProtectedRoute();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      router.replace("/signin");
+    } catch (error: any) {
+      Alert.alert("Logout Failed", error.message);
+    }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -31,11 +53,13 @@ export default function Index() {
           source={require("../../assets/images/rl-logo.png")}
           style={styles.logo}
         />
-        <Ionicons
-          name='notifications-outline'
-          size={24}
-          style={styles.notificationIcon}
-        />
+        <Pressable onPress={handleLogout}>
+          <Ionicons
+            name='exit-outline'
+            size={24}
+            style={styles.notificationIcon}
+          />
+        </Pressable>
       </View>
 
       <View style={styles.info}>

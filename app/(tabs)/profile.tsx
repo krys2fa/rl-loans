@@ -1,23 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { useAuth } from "../../context/AuthContext";
 
 const getCreditIcon = (score) => {
-  if (score >= 800)
+  if (score >= 50)
     return {
       name: "shield-checkmark-outline",
       color: "#4caf50",
       label: "Excellent",
     };
-  if (score >= 700)
+  if (score >= 40)
     return { name: "shield-outline", color: "#1e88e5", label: "Good" };
-  if (score >= 600)
+  if (score >= 20)
     return { name: "shield-half-outline", color: "#ffc107", label: "Fair" };
   return { name: "shield-close-outline", color: "#f44336", label: "Poor" };
 };
 
 export default function SettingsScreen() {
-  const creditScore = 750; // Dynamic score can be passed as a prop or from state
+  const { user } = useAuth();
+  const [creditScore, setCreditScore] = useState(750);
+
+  useEffect(() => {
+    if (user) {
+      // You can update creditScore dynamically based on the user's data (e.g., from a Firebase Firestore collection)
+      setCreditScore(750); // Example, set this based on the user's actual data
+    }
+  }, [user]);
+
+  if (!user) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.header}>Account Profile</Text>
+        <Text>Please sign in to view your profile.</Text>
+      </View>
+    );
+  }
   const { name, color, label } = getCreditIcon(creditScore);
 
   return (
@@ -33,14 +51,14 @@ export default function SettingsScreen() {
         <Text style={styles.label}>Email</Text>
         <TextInput
           style={styles.input}
-          value='chris@example.com'
+          value={user?.email || ""}
           editable={false}
         />
 
         <Text style={styles.label}>Phone</Text>
         <TextInput
           style={styles.input}
-          value='+233 123 456 789'
+          value={user?.email?.substring(0, 10) || ""}
           editable={false}
         />
 
@@ -54,7 +72,7 @@ export default function SettingsScreen() {
         <Text style={styles.label}>Occupation</Text>
         <TextInput
           style={styles.input}
-          value='Software Developer'
+          value='Shop Attendant'
           editable={false}
         />
 
@@ -65,7 +83,7 @@ export default function SettingsScreen() {
           editable={false}
         />
 
-        <Text style={styles.label}>Credit Worthiness</Text>
+        <Text style={styles.label}>Creditworthiness</Text>
         <View style={styles.creditContainer}>
           <Ionicons
             name={name}

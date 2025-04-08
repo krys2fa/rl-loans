@@ -1,7 +1,23 @@
 import { Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useAuth } from "../../context/AuthContext";
+import { Redirect } from "expo-router";
+import { ActivityIndicator, View } from "react-native";
 
 export default function TabLayout() {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size='large' />
+      </View>
+    );
+  }
+
+  if (!user) {
+    return <Redirect href='/signin' />;
+  }
   return (
     <Tabs
       screenOptions={{
@@ -44,7 +60,7 @@ export default function TabLayout() {
           title: "Pay Loan",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={focused ? "receipt-sharp" : "receipt-sharp"}
+              name={focused ? "document" : "document-outline"}
               color={color}
               size={24}
             />
