@@ -1,0 +1,302 @@
+{
+  "sections": [
+    {
+      "title": "Personal & Demographic Info",
+      "questions": [
+        {
+          "question": "What is your relationship status?",
+          "type": "select",
+          "options": [
+            "Single",
+            "Married",
+            "Divorced",
+            "Widowed",
+            "Living with partner (not married)"
+          ]
+        },
+        {
+          "question": "What is your age range?",
+          "type": "select",
+          "options": [
+            "Below 18",
+            "18\u201324",
+            "25\u201334",
+            "35\u201344",
+            "45\u201354",
+            "55+"
+          ]
+        },
+        {
+          "question": "What is your gender?",
+          "type": "select",
+          "options": [
+            "Male",
+            "Female",
+            "Other / Prefer not to say"
+          ]
+        },
+        {
+          "question": "Are you physically challenged?",
+          "type": "select",
+          "options": [
+            "Yes",
+            "No"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Education & Literacy",
+      "questions": [
+        {
+          "question": "What is your highest level of education completed?",
+          "type": "select",
+          "options": [
+            "No formal education",
+            "Some primary",
+            "Completed primary",
+            "JHS / O-Level",
+            "SHS / A-Level",
+            "Tertiary diploma / professional certificate",
+            "Bachelor\u2019s degree",
+            "Postgraduate"
+          ]
+        },
+        {
+          "question": "Can you read and write in English?",
+          "type": "select",
+          "options": [
+            "Yes",
+            "No",
+            "Somewhat"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Household & Residency",
+      "questions": [
+        {
+          "question": "Who owns the house where you live?",
+          "type": "select",
+          "options": [
+            "Self",
+            "Spouse/partner",
+            "Family member",
+            "Landlord",
+            "Employer",
+            "Other"
+          ]
+        },
+        {
+          "question": "How long have you lived at your current residence?",
+          "type": "select",
+          "options": [
+            "Less than 6 months",
+            "6 months \u2013 1 year",
+            "1\u20132 years",
+            "2\u20134 years",
+            "4\u20136 years",
+            "6 years or more"
+          ]
+        },
+        {
+          "question": "How many people do you financially support (including yourself)?",
+          "type": "select",
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5 or more"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Employment & Income",
+      "questions": [
+        {
+          "question": "What is your current employment status?",
+          "type": "select",
+          "options": [
+            "Unemployed",
+            "National service",
+            "Informally self-employed",
+            "Formally self-employed",
+            "Employed part-time",
+            "Employed full-time",
+            "Retired"
+          ]
+        },
+        {
+          "question": "What industry or sector do you primarily work in?",
+          "type": "text"
+        },
+        {
+          "question": "How long have you been working in your current job/business?",
+          "type": "select",
+          "options": [
+            "Less than 6 months",
+            "6 months \u2013 1 year",
+            "1\u20132 years",
+            "2\u20134 years",
+            "4\u20136 years",
+            "6+ years"
+          ]
+        },
+        {
+          "question": "What is your average monthly income?",
+          "type": "select",
+          "options": [
+            "Below GHS 350",
+            "GHS 351\u2013700",
+            "GHS 701\u20131000",
+            "GHS 1001\u20131400",
+            "GHS 1401\u20131800",
+            "Above GHS 1800"
+          ]
+        },
+        {
+          "question": "Do you have any side income?",
+          "type": "select",
+          "options": [
+            "Yes",
+            "No"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Business Ownership & Stability",
+      "questions": [
+        {
+          "question": "Do you own a business?",
+          "type": "select",
+          "options": [
+            "No",
+            "Yes, alone",
+            "Yes, with partners"
+          ]
+        },
+        {
+          "question": "How long has the business been running?",
+          "type": "select",
+          "options": [
+            "Less than 6 months",
+            "6 months \u2013 1 year",
+            "1\u20132 years",
+            "2\u20134 years",
+            "4+ years"
+          ]
+        },
+        {
+          "question": "Do you have any of the following documents?",
+          "type": "multi-select",
+          "options": [
+            "Certificate of Registration",
+            "Business Operating Permit",
+            "District Assembly License",
+            "Tax Identification Number (TIN)",
+            "None"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Financial Habits & History",
+      "questions": [
+        {
+          "question": "Do you have a mobile money account?",
+          "type": "select",
+          "options": [
+            "Yes \u2013 MTN",
+            "Yes \u2013 Vodafone",
+            "Yes \u2013 AirtelTigo",
+            "No"
+          ]
+        },
+        {
+          "question": "Do you save money regularly?",
+          "type": "select",
+          "options": [
+            "Yes, weekly",
+            "Yes, monthly",
+            "Occasionally",
+            "No"
+          ]
+        },
+        {
+          "question": "Have you taken a loan before?",
+          "type": "select",
+          "options": [
+            "Yes, and I repaid fully on time",
+            "Yes, repaid late",
+            "Yes, defaulted",
+            "No"
+          ]
+        },
+        {
+          "question": "Do you currently have any outstanding loans?",
+          "type": "select",
+          "options": [
+            "Yes",
+            "No"
+          ]
+        },
+        {
+          "question": "Do you have a bank or credit union account?",
+          "type": "select",
+          "options": [
+            "Yes",
+            "No"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Psychometric & Behavioral Insights",
+      "questions": [
+        {
+          "question": "If you unexpectedly received GHS 1000 today, what would you do?",
+          "type": "select",
+          "options": [
+            "Invest in business",
+            "Save it",
+            "Pay off debts",
+            "Spend on family needs",
+            "Buy personal items"
+          ]
+        },
+        {
+          "question": "How often do you set a budget and stick to it?",
+          "type": "select",
+          "options": [
+            "Always",
+            "Sometimes",
+            "Rarely",
+            "Never"
+          ]
+        },
+        {
+          "question": "If your business fails today, do you have a backup income?",
+          "type": "select",
+          "options": [
+            "Yes",
+            "No"
+          ]
+        },
+        {
+          "question": "How likely are you to take another loan if you are refused today?",
+          "type": "select",
+          "options": [
+            "Very likely",
+            "Somewhat likely",
+            "Not likely",
+            "I\u2019ll wait and reapply"
+          ]
+        }
+      ]
+    }
+  ]
+}

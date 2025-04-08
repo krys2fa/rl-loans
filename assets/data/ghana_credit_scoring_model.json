@@ -1,0 +1,169 @@
+{
+  "Personal & Demographic Info": {
+    "relationship_status": {
+      "Married": 2,
+      "Living with partner (not married)": 1,
+      "Single": 0,
+      "Divorced": -1,
+      "Widowed": -1
+    },
+    "age_range": {
+      "18\u201324": 0,
+      "25\u201334": 2,
+      "35\u201344": 3,
+      "45\u201354": 2,
+      "55+": 1,
+      "Below 18": -1
+    },
+    "gender": {
+      "Male": 1,
+      "Female": 2,
+      "Other / Prefer not to say": 0
+    },
+    "physically_challenged": {
+      "Yes": -1,
+      "No": 1
+    }
+  },
+  "Education & Literacy": {
+    "education_level": {
+      "No formal education": -2,
+      "Some primary": -1,
+      "Completed primary": 0,
+      "JHS / O-Level": 1,
+      "SHS / A-Level": 2,
+      "Tertiary diploma / professional certificate": 3,
+      "Bachelor\u2019s degree": 4,
+      "Postgraduate": 5
+    },
+    "literacy": {
+      "Yes": 2,
+      "Somewhat": 1,
+      "No": -1
+    }
+  },
+  "Household & Residency": {
+    "house_ownership": {
+      "Self": 3,
+      "Spouse/partner": 2,
+      "Family member": 1,
+      "Landlord": 0,
+      "Employer": 1,
+      "Other": 0
+    },
+    "residency_duration": {
+      "Less than 6 months": -2,
+      "6 months \u2013 1 year": -1,
+      "1\u20132 years": 0,
+      "2\u20134 years": 1,
+      "4\u20136 years": 2,
+      "6 years or more": 3
+    },
+    "number_supported": {
+      "1": 2,
+      "2": 1,
+      "3": 0,
+      "4": -1,
+      "5 or more": -2
+    }
+  },
+  "Employment & Income": {
+    "employment_status": {
+      "Unemployed": -2,
+      "National service": 0,
+      "Informally self-employed": 1,
+      "Formally self-employed": 3,
+      "Employed part-time": 2,
+      "Employed full-time": 4,
+      "Retired": 1
+    },
+    "job_duration": {
+      "Less than 6 months": -2,
+      "6 months \u2013 1 year": -1,
+      "1\u20132 years": 0,
+      "2\u20134 years": 1,
+      "4\u20136 years": 2,
+      "6+ years": 3
+    },
+    "monthly_income": {
+      "Below GHS 350": -2,
+      "GHS 351\u2013700": -1,
+      "GHS 701\u20131000": 0,
+      "GHS 1001\u20131400": 1,
+      "GHS 1401\u20131800": 2,
+      "Above GHS 1800": 3
+    },
+    "side_income": {
+      "Yes": 1,
+      "No": 0
+    }
+  },
+  "Business Ownership & Stability": {
+    "own_business": {
+      "No": 0,
+      "Yes, alone": 2,
+      "Yes, with partners": 1
+    },
+    "business_age": {
+      "Less than 6 months": -1,
+      "6 months \u2013 1 year": 0,
+      "1\u20132 years": 1,
+      "2\u20134 years": 2,
+      "4+ years": 3
+    },
+    "business_docs": {
+      "Certificate of Registration": 1,
+      "Business Operating Permit": 1,
+      "District Assembly License": 1,
+      "Tax Identification Number (TIN)": 1,
+      "None": -2
+    }
+  },
+  "Financial Habits & History": {
+    "savings_habit": {
+      "Yes, weekly": 3,
+      "Yes, monthly": 2,
+      "Occasionally": 1,
+      "No": -1
+    },
+    "loan_history": {
+      "Yes, and I repaid fully on time": 3,
+      "Yes, repaid late": 1,
+      "Yes, defaulted": -2,
+      "No": 0
+    },
+    "outstanding_loans": {
+      "Yes": -2,
+      "No": 1
+    },
+    "bank_account": {
+      "Yes": 2,
+      "No": -1
+    }
+  },
+  "Psychometric & Behavioral Insights": {
+    "emergency_spending": {
+      "Invest in business": 3,
+      "Save it": 2,
+      "Pay off debts": 1,
+      "Spend on family needs": 0,
+      "Buy personal items": -1
+    },
+    "budgeting_habit": {
+      "Always": 3,
+      "Sometimes": 2,
+      "Rarely": 1,
+      "Never": 0
+    },
+    "backup_income": {
+      "Yes": 2,
+      "No": -1
+    },
+    "loan_reapplication_likelihood": {
+      "Very likely": 0,
+      "Somewhat likely": 1,
+      "Not likely": 2,
+      "I\u2019ll wait and reapply": 3
+    }
+  }
+}
