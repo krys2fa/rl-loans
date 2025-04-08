@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   TextInput,
@@ -10,21 +10,44 @@ import {
 } from "react-native";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "expo-router";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebaseConfig";
 
 export default function Signin() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const router = useRouter();
 
   const handleLogin = async () => {
     const email = `${phone}@example.com`;
 
     try {
+      // Attempt to log in with the phone and password
       await login(email, password);
-      router.replace("/(tabs)/");
     } catch (error: any) {
       Alert.alert("Login Error", "Invalid credentials. Please try again.");
+      return;
+    }
+
+    // Check if the user has completed the onboarding process after login
+    if (user) {
+      const userDocRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(userDocRef);
+
+      if (docSnap.exists()) {
+        const userData = docSnap.data();
+
+        // If the user has not completed onboarding, redirect to the onboarding screens
+        if (!userData?.onboardingCompleted) {
+          router.replace("/onboarding");
+        } else {
+          // Otherwise, proceed to the main app (home screen)
+          router.replace("/(tabs)/");
+        }
+      } else {
+        Alert.alert("Error", "User data not found.");
+      }
     }
   };
 
