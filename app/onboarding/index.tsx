@@ -1,97 +1,90 @@
-// app/onboarding/index.tsx
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+} from "react-native";
 import { useRouter } from "expo-router";
+import * as Progress from "react-native-progress";
 import { Ionicons } from "@expo/vector-icons";
-
 const steps = [
-  { key: "Step1_Selfie", label: "Selfie" },
-  { key: "Step2_IDFront", label: "Front of ID" },
-  { key: "Step3_IDBack", label: "Back of ID" },
+  { label: "Take a Selfie", route: "selfie" },
+  { label: "Front of ID", route: "id-front" },
+  { label: "Back of ID", route: "id-back" },
 ];
 
-export default function OnboardingIndex() {
+export default function Onboarding() {
   const router = useRouter();
+  const [stepIndex, setStepIndex] = useState(0);
 
-  const handleStart = () => {
-    router.push("/onboarding/selfie");
+  const handleNext = () => {
+    const next = steps[stepIndex];
+    router.push(`/onboarding/${next.route}`);
+    if (stepIndex < steps.length - 1) {
+      setStepIndex(stepIndex + 1);
+    }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Identity Verification</Text>
-      <Text style={styles.subtitle}>Let's get to know you better</Text>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Verify Your Identity</Text>
+      <Text style={styles.subtitle}>
+        Step {stepIndex + 1} of {steps.length}: {steps[stepIndex].label}
+      </Text>
 
-      <View style={styles.stepsContainer}>
-        {steps.map((step, index) => (
-          <View key={step.key} style={styles.stepItem}>
-            <Ionicons
-              name='checkmark-done-circle-outline'
-              size={30}
-              color='#1e88e5'
-            />
-            <Text style={styles.stepText}>{step.label}</Text>
-            {index !== steps.length - 1 && <View style={styles.stepLine} />}
-          </View>
-        ))}
-      </View>
+      <Progress.Bar
+        progress={(stepIndex + 1) / steps.length}
+        width={null}
+        height={10}
+        color='#4a90e2'
+        borderRadius={10}
+        borderWidth={0}
+        style={{ marginVertical: 20 }}
+      />
 
-      <TouchableOpacity style={styles.button} onPress={handleStart}>
-        <Text style={styles.buttonText}>Start Verification</Text>
+      <TouchableOpacity style={styles.button} onPress={handleNext}>
+        <Text style={styles.buttonText}>Start</Text>
+        <Ionicons name='arrow-forward' size={24} color='#fff' />
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    padding: 24,
     flex: 1,
+    backgroundColor: "#fff",
     justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#f8f9fa",
-    padding: 20,
   },
   title: {
     fontSize: 28,
     fontWeight: "bold",
-    marginBottom: 10,
     fontFamily: "Quicksand",
+    textAlign: "center",
+    marginBottom: 10,
   },
   subtitle: {
     fontSize: 16,
-    color: "#777",
-    marginBottom: 40,
+    textAlign: "center",
+    color: "#555",
     fontFamily: "Quicksand",
-  },
-  stepsContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 40,
-  },
-  stepItem: {
-    alignItems: "center",
-  },
-  stepText: {
-    fontSize: 14,
-    marginTop: 5,
-    fontFamily: "Quicksand",
-  },
-  stepLine: {
-    height: 1,
-    width: 30,
-    backgroundColor: "#ccc",
-    marginVertical: 5,
   },
   button: {
-    backgroundColor: "#1e88e5",
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    borderRadius: 12,
+    marginTop: 40,
+    backgroundColor: "#4a90e2",
+    paddingVertical: 14,
+    borderRadius: 10,
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 10,
+    alignItems: "center",
   },
   buttonText: {
-    color: "#fff",
     fontSize: 16,
-    fontWeight: "bold",
-    fontFamily: "Quicksand",
+    color: "#fff",
+    fontWeight: "600",
   },
 });

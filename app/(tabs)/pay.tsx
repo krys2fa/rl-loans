@@ -42,7 +42,6 @@ export default function Pay() {
 
   const handleRepaymentSubmit = () => {
     if (agreeToTerms) {
-      console.log({ repaymentAmount, loanType, repaymentDate });
       alert("Repaying now...");
     } else {
       alert("Please agree to the terms and conditions.");

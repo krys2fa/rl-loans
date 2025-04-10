@@ -1,149 +1,148 @@
-// app/onboarding/id-back.tsx
 import React, { useState } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
-  Image,
-  ActivityIndicator,
+  SafeAreaView,
   Alert,
+  Image,
 } from "react-native";
-import { useRouter } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
-import Animated, { FadeInUp } from "react-native-reanimated";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "../../firebaseConfig";
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 
 export default function IDBack() {
-  const [image, setImage] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [image, setImage] = useState<string | null>(null);
 
   const pickImage = async () => {
+    // Request camera permissions
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert("Permission required", "Please allow camera access.");
+      return;
+    }
+
+    // Take a photo with the camera
     const result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      quality: 0.8,
+      aspect: [4, 3],
+      quality: 1,
     });
 
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
+    if (!result.cancelled) {
+      setImage(result.uri);
     }
   };
 
-  const uploadToFirebase = async () => {
-    if (!image) return;
-
-    setLoading(true);
-    const response = await fetch(image);
-    const blob = await response.blob();
-    const filename = `id-back-${Date.now()}.jpg`;
-    const imageRef = ref(storage, `ids/${filename}`);
-
-    try {
-      await uploadBytes(imageRef, blob);
-      const url = await getDownloadURL(imageRef);
-      setLoading(false);
-      router.push("/onboarding/complete");
-    } catch (error) {
-      setLoading(false);
-      Alert.alert("Upload failed", "Please try again.");
-    }
+  const handleNext = () => {
+    // Proceed to the root screen ("/") even if no image was captured
+    router.push("/");
   };
 
   return (
-    <Animated.View entering={FadeInUp.duration(600)} style={styles.container}>
-      <Text style={styles.title}>Upload Back of ID</Text>
-      <Text style={styles.subtitle}>Ensure it's fully visible</Text>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Back of ID</Text>
+      <Text style={styles.subtitle}>
+        Please capture the back of your ID card
+      </Text>
 
-      <TouchableOpacity style={styles.uploadBox} onPress={pickImage}>
-        {image ? (
+      {image ? (
+        <View style={styles.imageContainer}>
           <Image source={{ uri: image }} style={styles.image} />
-        ) : (
-          <Text style={styles.uploadText}>Tap to take a photo</Text>
-        )}
+        </View>
+      ) : (
+        <Text style={styles.noImageText}>No image captured yet</Text>
+      )}
+
+      <TouchableOpacity style={styles.button} onPress={pickImage}>
+        <Text style={styles.buttonText}>Capture ID Back</Text>
+        <Ionicons name='camera' size={24} color='#fff' />
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={[styles.button, { backgroundColor: image ? "#4a90e2" : "#ccc" }]}
-        onPress={uploadToFirebase}
-        disabled={!image || loading}
-      >
-        {loading ? (
-          <ActivityIndicator color='#fff' />
-        ) : (
-          <Text style={styles.buttonText}>Finish</Text>
-        )}
+      <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
+        <Text style={styles.buttonText}>Next</Text>
+        <Ionicons name='arrow-forward' size={24} color='#fff' />
       </TouchableOpacity>
-
-      <View style={styles.progressBarContainer}>
-        <View style={[styles.progressBar, { width: "100%" }]} />
-      </View>
-    </Animated.View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 24,
+    flex: 1,
     backgroundColor: "#fff",
     justifyContent: "center",
+    alignItems: "center",
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: "bold",
-    textAlign: "center",
     fontFamily: "Quicksand",
-    marginBottom: 6,
+    textAlign: "center",
+    marginBottom: 10,
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: 16,
     textAlign: "center",
     color: "#555",
     fontFamily: "Quicksand",
-    marginBottom: 30,
+    marginBottom: 20,
   },
-  uploadBox: {
-    height: 250,
-    borderWidth: 2,
-    borderColor: "#ccc",
-    borderRadius: 12,
-    borderStyle: "dashed",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 30,
-  },
-  uploadText: {
-    fontSize: 16,
-    color: "#999",
-    fontFamily: "Quicksand",
+  imageContainer: {
+    marginBottom: 20,
+    width: 200,
+    height: 200,
+    borderRadius: 10,
+    overflow: "hidden",
   },
   image: {
     width: "100%",
     height: "100%",
-    borderRadius: 10,
+    objectFit: "cover",
+  },
+  noImageText: {
+    color: "#aaa",
+    fontSize: 16,
+    marginBottom: 20,
   },
   button: {
+    backgroundColor: "#4a90e2",
     paddingVertical: 14,
-    borderRadius: 10,
+    borderRadius: 12,
+    flexDirection: "row",
+    justifyContent: "center",
     alignItems: "center",
+    gap: 12,
+    marginBottom: 20,
+    width: 220,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
   },
   buttonText: {
     fontSize: 16,
     color: "#fff",
     fontWeight: "600",
   },
-  progressBarContainer: {
-    height: 8,
-    backgroundColor: "#eee",
-    borderRadius: 4,
-    marginTop: 30,
-  },
-  progressBar: {
-    height: 8,
-    backgroundColor: "#4a90e2",
-    borderRadius: 4,
+  nextButton: {
+    backgroundColor: "#1e90ff",
+    paddingVertical: 14,
+    borderRadius: 12,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 12,
+    marginBottom: 20,
+    width: 220,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
   },
 });
