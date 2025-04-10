@@ -177,7 +177,6 @@ const questionnaire = {
     business_docs: {
       question:
         "Do you have any of the following documents?(Certificate of Registration, Business Operating Permit,District Assembly License,Tax Identification Number (TIN))",
-      None: -2,
       options: {
         Yes: 1,
         None: -2,
@@ -294,9 +293,11 @@ export default function QuestionnaireForm() {
   const calculateScore = () => {
     let total = 0;
     for (const [section, questions] of Object.entries(questionnaire)) {
-      for (const [question, options] of Object.entries(questions)) {
-        const answer = responses[question];
-        if (answer && options[answer] !== undefined) {
+      for (const [questionKey, questionData] of Object.entries(questions)) {
+        const answer = responses[questionKey];
+        const options = questionData.options;
+
+        if (answer !== undefined && options && options[answer] !== undefined) {
           total += options[answer];
         }
       }

@@ -29,9 +29,7 @@ const AuthContext = createContext<AuthContextType>({
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
-  console.log("🚀 ~ AuthProvider ~ user:", user);
   const [loading, setLoading] = useState(true);
-  console.log("🚀 ~ AuthProvider ~ loading:", loading);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {

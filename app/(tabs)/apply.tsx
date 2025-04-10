@@ -65,14 +65,6 @@ export default function Apply() {
 
   const handleApply = () => {
     if (agreeToTerms) {
-      console.log({
-        amount,
-        repaymentPeriod,
-        loanType,
-        interestRate,
-        repaymentDate,
-        installmentAmount,
-      });
       alert("Applying....");
     } else {
       alert("Please agree to the terms and conditions.");
