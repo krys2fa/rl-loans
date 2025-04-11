@@ -74,6 +74,10 @@ export default function Selfie() {
     }
   };
 
+  const handleNext = () => {
+    router.push("/onboarding/id-front");
+  };
+
   if (hasPermission === null) {
     return <Text>Requesting camera permission...</Text>;
   }
@@ -100,6 +104,11 @@ export default function Selfie() {
       <TouchableOpacity style={styles.button} onPress={pickImage}>
         <Text style={styles.buttonText}>Capture Selfie</Text>
         <Ionicons name='camera' size={24} color='#fff' />
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
+        <Text style={styles.buttonText}>Next</Text>
+        <Ionicons name='arrow-forward' size={24} color='#fff' />
       </TouchableOpacity>
 
       {faces && faces.length > 0 && (
@@ -176,5 +185,21 @@ const styles = StyleSheet.create({
   faceText: {
     fontSize: 16,
     color: "#4a90e2",
+  },
+  nextButton: {
+    backgroundColor: "#1e90ff",
+    paddingVertical: 14,
+    borderRadius: 12,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 12,
+    marginBottom: 20,
+    width: 220,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
   },
 });

@@ -1,87 +1,3 @@
-// import React, { useState } from "react";
-// import {
-//   View,
-//   TextInput,
-//   Button,
-//   Text,
-//   StyleSheet,
-//   Alert,
-//   Image,
-// } from "react-native";
-// import { createUserWithEmailAndPassword } from "firebase/auth";
-// import { auth, db } from "../firebaseConfig";
-// import { doc, setDoc } from "firebase/firestore";
-// import { useRouter } from "expo-router";
-
-// export default function Signup() {
-//   const [phone, setPhone] = useState("");
-//   const [password, setPassword] = useState("");
-//   const router = useRouter();
-
-//   const handleSignup = async () => {
-//     try {
-//       const email = `${phone}@example.com`; // convert phone to email
-//       const userCredential = await createUserWithEmailAndPassword(
-//         auth,
-//         email,
-//         password
-//       );
-
-//       // Store user profile in Firestore
-//       await setDoc(doc(db, "users", userCredential.user.uid), {
-//         phone,
-//         createdAt: new Date(),
-//       });
-
-//       Alert.alert("Success", "Account created successfully!");
-//       router.replace("/(tabs)/"); // or wherever you want to redirect
-//     } catch (error: any) {
-//       Alert.alert("Signup Error", error.message);
-//     }
-//   };
-
-//   return (
-//     <View style={styles.container}>
-//       <Image
-//         source={require("../assets/images/rl-logo.png")}
-//         style={styles.logo}
-//       />
-//       <Text>Phone Number</Text>
-//       <TextInput
-//         style={styles.input}
-//         keyboardType='phone-pad'
-//         value={phone}
-//         onChangeText={setPhone}
-//       />
-//       <Text>Password</Text>
-//       <TextInput
-//         style={styles.input}
-//         secureTextEntry
-//         value={password}
-//         onChangeText={setPassword}
-//       />
-//       <Button title='Sign Up' onPress={handleSignup} />
-//       <Text onPress={() => router.push("/signin")} style={styles.link}>
-//         Already have an account? Sign In
-//       </Text>
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: { flex: 1, padding: 20, justifyContent: "center" },
-//   input: { borderWidth: 1, marginVertical: 8, padding: 10, borderRadius: 5 },
-//   link: { marginTop: 20, color: "#1e90ff", textAlign: "center" },
-//   logo: {
-//     width: 120,
-//     height: 80,
-//     resizeMode: "contain",
-//     alignSelf: "center",
-//     marginBottom: 30,
-//     borderRadius: 20,
-//   },
-// });
-
 import React, { useState } from "react";
 import {
   View,
@@ -98,15 +14,19 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "expo-router";
+import * as Animatable from "react-native-animatable";
 
 export default function Signup() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const router = useRouter();
 
   const handleSignup = async () => {
     try {
       const email = `${phone}@example.com`; // convert phone to email
+      setIsLoading(true);
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -120,9 +40,11 @@ export default function Signup() {
       });
 
       Alert.alert("Success", "Account created successfully!");
-      router.replace("/(tabs)/"); // or wherever you want to redirect
+      router.replace("/(tabs)/");
     } catch (error: any) {
       Alert.alert("Signup Error", error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -135,6 +57,14 @@ export default function Signup() {
         source={require("../assets/images/rl-logo.png")}
         style={styles.logo}
       />
+
+      <Animatable.Text
+        animation='fadeInDown'
+        delay={200}
+        style={styles.uxMessage}
+      >
+        🎉 Join us! Create your account to get started
+      </Animatable.Text>
 
       <Text style={styles.label}>Phone Number</Text>
       <TextInput
@@ -156,9 +86,20 @@ export default function Signup() {
         onChangeText={setPassword}
       />
 
-      <Pressable onPress={handleSignup} style={styles.button}>
-        <Text style={styles.buttonText}>Sign Up</Text>
-      </Pressable>
+      {isLoading ? (
+        <Animatable.View
+          animation='pulse'
+          easing='ease-in-out'
+          iterationCount='infinite'
+          style={[styles.button, { backgroundColor: "#b0c4de" }]}
+        >
+          <Text style={styles.buttonText}>Signing Up...</Text>
+        </Animatable.View>
+      ) : (
+        <Pressable onPress={handleSignup} style={styles.button}>
+          <Text style={styles.buttonText}>Sign Up</Text>
+        </Pressable>
+      )}
 
       <Text onPress={() => router.push("/signin")} style={styles.link}>
         Already have an account?{" "}
@@ -221,5 +162,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#1e90ff",
     fontSize: 14,
+  },
+  uxMessage: {
+    fontSize: 18,
+    fontWeight: "600",
+    textAlign: "center",
+    marginBottom: 20,
+    color: "#1e88e5",
+    fontFamily: "Quicksand",
   },
 });
