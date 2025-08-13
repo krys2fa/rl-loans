@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
-import { useAuth } from "../../context/AuthContext";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store";
 
-const getCreditIcon = (score) => {
+const getCreditIcon = (score: number) => {
   if (score >= 50)
     return {
       name: "shield-checkmark-outline",
@@ -18,68 +19,51 @@ const getCreditIcon = (score) => {
 };
 
 export default function SettingsScreen() {
-  const { user } = useAuth();
-  const [creditScore, setCreditScore] = useState(750);
-
-  useEffect(() => {
-    if (user) {
-      // You can update creditScore dynamically based on the user's data (e.g., from a Firebase Firestore collection)
-      setCreditScore(750); // Example, set this based on the user's actual data
-    }
-  }, [user]);
-
-  if (!user) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.header}>Account Profile</Text>
-        <Text>Please sign in to view your profile.</Text>
-      </View>
-    );
-  }
-  const { name, color, label } = getCreditIcon(creditScore);
+  const profile = useSelector((state: RootState) => state.profile);
+  const { name, color, label } = getCreditIcon(profile.creditScore);
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Account Profile</Text>
 
       <View style={styles.profileSection}>
-        <MaterialIcons name='account-circle' size={80} color='#1e88e5' />
-        <Text style={styles.name}>Kwaku Mintah</Text>
+        <MaterialIcons name="account-circle" size={80} color="#1e88e5" />
+        <Text style={styles.name}>{profile.name}</Text>
       </View>
 
       <View style={styles.infoSection}>
         <Text style={styles.label}>Email</Text>
         <TextInput
           style={styles.input}
-          value={user?.email || ""}
+          value={profile.email}
           editable={false}
         />
 
         <Text style={styles.label}>Phone</Text>
         <TextInput
           style={styles.input}
-          value={user?.email?.substring(0, 10) || ""}
+          value={profile.phone}
           editable={false}
         />
 
         <Text style={styles.label}>Address</Text>
         <TextInput
           style={styles.input}
-          value='123 Main St, Accra'
+          value={profile.address}
           editable={false}
         />
 
         <Text style={styles.label}>Occupation</Text>
         <TextInput
           style={styles.input}
-          value='Shop Attendant'
+          value={profile.occupation}
           editable={false}
         />
 
         <Text style={styles.label}>Credit Score</Text>
         <TextInput
           style={styles.input}
-          value={`${creditScore}`}
+          value={`${profile.creditScore}`}
           editable={false}
         />
 

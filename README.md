@@ -1,19 +1,19 @@
-# RL Loans - Personal & Business Loan Application 💰
+# RL Loans - Personal & Business Loan Application 
 
 A comprehensive React Native loan application built with Expo, featuring AI-powered credit scoring, seamless payment processing, and a modern user interface. This app provides a complete loan management solution for both personal and business loans with integrated KYC verification.
 
 ![App Logo](./assets/images/rl-logo.png)
 
-## 🚀 Features
+##  Features
 
-### 🔐 Authentication & Security
+###  Authentication & Security
 
 - **Firebase Authentication** - Secure user registration and login
 - **Protected Routes** - Authenticated access to sensitive features
 - **KYC Verification** - ID document capture and selfie verification using Expo Camera
 - **Face Detection** - Enhanced security with Expo Face Detector
 
-### 💳 Loan Management
+###  Loan Management
 
 - **Multiple Loan Types** - Personal, Business, and Education loans
 - **Smart Loan Calculator** - Real-time interest and installment calculations
@@ -21,14 +21,14 @@ A comprehensive React Native loan application built with Expo, featuring AI-powe
 - **Loan History** - Complete transaction and payment history
 - **Payment Processing** - Secure payment integration
 
-### 📊 Credit Assessment
+###  Credit Assessment
 
 - **AI Credit Scoring** - Advanced credit assessment using Ghana credit scoring model
 - **Comprehensive Survey** - Detailed financial and demographic questionnaire
 - **Risk Assessment** - Automated creditworthiness evaluation
 - **Real-time Scoring** - Instant credit decisions
 
-### 📱 User Experience
+###  User Experience
 
 - **Modern UI** - Clean, intuitive interface with React Native Paper
 - **Cross-Platform** - Native performance on iOS, Android, and Web
@@ -36,18 +36,18 @@ A comprehensive React Native loan application built with Expo, featuring AI-powe
 - **Push Notifications** - Real-time updates and reminders
 - **Dark/Light Mode** - Automatic theme switching
 
-### 🛠️ Technical Features
+###  Technical Features
 
 - **TypeScript** - Type-safe development
 - **File-based Routing** - Expo Router for navigation
-- **State Management** - Context API for global state
+- **State Management** - Redux Toolkit for all app states (authentication, profile, loan application, payments)
 - **Real-time Updates** - Firebase Firestore integration
 - **Image Handling** - Document upload and processing
 - **Progress Tracking** - Visual feedback for all operations
 
-## 📱 Screenshots
+##  Screenshots
 
-_Note: Add screenshots of your app here after launching it. Recommended sections:_
+_TODO: Add screenshots of your app here after launching it. Recommended sections:_
 
 - Login/Registration screens
 - Loan application flow
@@ -56,7 +56,7 @@ _Note: Add screenshots of your app here after launching it. Recommended sections
 - Payment interface
 - Credit assessment results
 
-## 🏗️ Tech Stack
+##  Tech Stack
 
 - **Framework**: React Native with Expo
 - **Language**: TypeScript
@@ -70,7 +70,7 @@ _Note: Add screenshots of your app here after launching it. Recommended sections
 - **Payments**: Integrated payment processing
 - **Animations**: React Native Reanimated & Animatable
 
-## 📋 Prerequisites
+##  Prerequisites
 
 Before you begin, ensure you have the following installed:
 
@@ -85,7 +85,7 @@ Before you begin, ensure you have the following installed:
 - **Android**: Android Studio
 - **Device Testing**: Expo Go app on your mobile device
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### 1. Clone the Repository
 
@@ -142,7 +142,7 @@ npx expo run:android
 npx expo start --web
 ```
 
-## 📱 Available Scripts
+##  Available Scripts
 
 - `npm start` - Start the Expo development server
 - `npm run android` - Start on Android emulator/device
@@ -152,7 +152,7 @@ npx expo start --web
 - `npm run lint` - Run ESLint
 - `npm run reset-project` - Reset to clean project state
 
-## 🏗️ Project Structure
+##  Project Structure
 
 ```
 rl-loans/
@@ -187,7 +187,7 @@ rl-loans/
 └── package.json                  # Dependencies and scripts
 ```
 
-## 🔧 Configuration
+##  Configuration
 
 ### Environment Setup
 
@@ -207,7 +207,7 @@ Key settings in `app.json`:
 - Plugin configurations
 - Build settings
 
-## 🧪 Testing
+##  Testing
 
 ### Run Tests
 
@@ -225,7 +225,7 @@ The app includes tests for:
 - Component rendering
 - API integrations
 
-## 🚀 Building for Production
+##  Building for Production
 
 ### Development Build
 
@@ -248,7 +248,7 @@ eas submit --platform ios
 eas submit --platform android
 ```
 
-## 🔒 Security Features
+##  Security Features
 
 - Firebase Authentication with secure token management
 - Document verification with face detection
@@ -256,7 +256,7 @@ eas submit --platform android
 - Secure payment processing
 - GDPR compliant data handling
 
-## 🤝 Contributing
+##  Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -264,19 +264,19 @@ eas submit --platform android
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
+##  License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🆘 Support
+##  Support
 
 For support and questions:
 
-- 📧 Email: support@rl-loans.com
-- 📱 In-app support feature
-- 🐛 [Report issues](https://github.com/krys2fa/rl-loans/issues)
+-  Email: support@rl-loans.com
+-  In-app support feature
+-  [Report issues](https://github.com/krys2fa/rl-loans/issues)
 
-## 📈 Roadmap
+##  Roadmap
 
 - [ ] Multi-language support
 - [ ] Advanced analytics dashboard

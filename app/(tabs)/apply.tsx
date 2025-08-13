@@ -13,14 +13,14 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
 import { Checkbox } from "react-native-paper";
 import useProtectedRoute from "../../hooks/useProtectedRoute";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoanDetails, resetLoan } from "../../features/loanSlice";
+import type { RootState } from "../../store";
 
 export default function Apply() {
   useProtectedRoute();
-  const [amount, setAmount] = useState(0);
-  const [repaymentPeriod, setRepaymentPeriod] = useState("");
-  const [loanType, setLoanType] = useState("Personal Loan");
-  const [interestRate, setInterestRate] = useState("15%");
-  const [repaymentDate, setRepaymentDate] = useState(new Date());
+  const dispatch = useDispatch();
+  const loan = useSelector((state: RootState) => state.loan);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [installmentAmount, setInstallmentAmount] = useState(0);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
@@ -37,12 +37,16 @@ export default function Apply() {
   ];
 
   const handleLoanTypeChange = (value: string) => {
-    setLoanType(value);
     const selectedOption = loanOptions.find((option) => option.value === value);
     if (selectedOption) {
-      setInterestRate(selectedOption.rate);
-      setRepaymentPeriod(selectedOption.period.toString());
-      calculateInstallment(amount, selectedOption.period);
+      dispatch(
+        setLoanDetails({
+          type: value,
+          interestRate: selectedOption.rate,
+          repaymentPeriod: selectedOption.period.toString(),
+        })
+      );
+      calculateInstallment(loan.amount, selectedOption.period);
     }
   };
 
@@ -56,16 +60,17 @@ export default function Apply() {
   const handleAmountChange = (value: string) => {
     const numericValue = parseFloat(value);
     if (!isNaN(numericValue)) {
-      setAmount(numericValue);
-      calculateInstallment(numericValue, parseInt(repaymentPeriod));
+      dispatch(setLoanDetails({ amount: numericValue }));
+      calculateInstallment(numericValue, parseInt(loan.repaymentPeriod));
     } else {
-      setAmount(0);
+      dispatch(setLoanDetails({ amount: 0 }));
     }
   };
 
   const handleApply = () => {
     if (agreeToTerms) {
       alert("Applying....");
+      // You can dispatch more actions here, e.g., setLoanStatus('pending')
     } else {
       alert("Please agree to the terms and conditions.");
     }
@@ -86,7 +91,7 @@ export default function Apply() {
       <Text style={styles.header}>Loan Application</Text>
       <Text style={styles.label}>Loan Type</Text>
       <Picker
-        selectedValue={loanType}
+        selectedValue={loan.type}
         onValueChange={handleLoanTypeChange}
         style={styles.input}
       >
@@ -101,23 +106,27 @@ export default function Apply() {
 
       <TextInput
         style={styles.input}
-        placeholder='Enter loan amount'
-        keyboardType='numeric'
-        value={amount.toString()}
+        placeholder="Enter loan amount"
+        keyboardType="numeric"
+        value={loan.amount.toString()}
         onChangeText={handleAmountChange}
       />
 
       <Text style={styles.label}>Repayment Period</Text>
       <TextInput
         style={styles.input}
-        placeholder='Enter period (months)'
-        keyboardType='numeric'
-        value={repaymentPeriod}
+        placeholder="Enter period (months)"
+        keyboardType="numeric"
+        value={loan.repaymentPeriod}
         editable={false}
       />
 
       <Text style={styles.label}>Interest Rate</Text>
-      <TextInput style={styles.input} value={interestRate} editable={false} />
+      <TextInput
+        style={styles.input}
+        value={loan.interestRate}
+        editable={false}
+      />
 
       <Text style={styles.label}>Repayment Date</Text>
       <TouchableOpacity onPress={() => setShowDatePicker(true)}>
@@ -130,8 +139,8 @@ export default function Apply() {
       {showDatePicker && (
         <DateTimePicker
           value={repaymentDate}
-          mode='date'
-          display='default'
+          mode="date"
+          display="default"
           minimumDate={new Date()}
           onChange={onChangeDate}
         />
@@ -161,9 +170,9 @@ export default function Apply() {
       </View>
 
       <Button
-        title='Apply Now'
+        title="Apply Now"
         onPress={handleApply}
-        color='#1e88e5'
+        color="#1e88e5"
         style={styles.button}
       />
     </View>

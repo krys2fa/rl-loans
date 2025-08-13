@@ -11,11 +11,13 @@ import {
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
 import { Checkbox } from "react-native-paper";
+import { useDispatch, useSelector } from "react-redux";
+import { setPaymentDetails, resetPayment } from "../../features/paymentSlice";
+import type { RootState } from "../../store";
 
 export default function Pay() {
-  const [repaymentAmount, setRepaymentAmount] = useState("0");
-  const [loanType, setLoanType] = useState("Personal Loan");
-  const [repaymentDate, setRepaymentDate] = useState(new Date());
+  const dispatch = useDispatch();
+  const payment = useSelector((state: RootState) => state.payment);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
 
@@ -25,24 +27,26 @@ export default function Pay() {
     { label: "Education Loan", value: "Education Loan" },
   ];
 
-  const handleLoanTypeChange = (value: any) => setLoanType(value);
+  const handleLoanTypeChange = (value: any) => {
+    dispatch(setPaymentDetails({ method: value }));
+  };
 
   const handleRepaymentDateChange = (event: any, selectedDate: any) => {
-    const currentDate = selectedDate || repaymentDate;
+    const currentDate = selectedDate || new Date(payment.date);
     setShowDatePicker(false);
-    setRepaymentDate(currentDate);
+    dispatch(setPaymentDetails({ date: currentDate.toISOString() }));
   };
 
   const handleRepaymentAmountChange = (amount: any) => {
-    // Only allow numeric input (including decimal points)
     if (/^\d*\.?\d*$/.test(amount)) {
-      setRepaymentAmount(amount);
+      dispatch(setPaymentDetails({ amount: parseFloat(amount) }));
     }
   };
 
   const handleRepaymentSubmit = () => {
     if (agreeToTerms) {
       alert("Repaying now...");
+      // You can dispatch more actions here, e.g., setPaymentStatus('pending')
     } else {
       alert("Please agree to the terms and conditions.");
     }
@@ -54,7 +58,7 @@ export default function Pay() {
 
       <Text style={styles.label}>Loan Type</Text>
       <Picker
-        selectedValue={loanType}
+        selectedValue={payment.method}
         onValueChange={handleLoanTypeChange}
         style={styles.input}
       >
@@ -70,25 +74,29 @@ export default function Pay() {
       <Text style={styles.label}>Repayment Amount</Text>
       <TextInput
         style={styles.input}
-        placeholder='Enter amount'
-        keyboardType='numeric'
+        placeholder="Enter amount"
+        keyboardType="numeric"
         onChangeText={handleRepaymentAmountChange}
-        value={repaymentAmount}
+        value={payment.amount ? payment.amount.toString() : ""}
       />
 
       <Text style={styles.label}>Repayment Date</Text>
       <TouchableOpacity onPress={() => setShowDatePicker(true)}>
         <TextInput
           style={styles.input}
-          value={repaymentDate.toDateString()}
+          value={
+            payment.date
+              ? new Date(payment.date).toDateString()
+              : new Date().toDateString()
+          }
           editable={false}
         />
       </TouchableOpacity>
       {showDatePicker && (
         <DateTimePicker
-          value={repaymentDate}
-          mode='date'
-          display='default'
+          value={payment.date ? new Date(payment.date) : new Date()}
+          mode="date"
+          display="default"
           onChange={handleRepaymentDateChange}
         />
       )}
@@ -109,9 +117,9 @@ export default function Pay() {
       </View>
 
       <Button
-        title='Repay Now'
+        title="Repay Now"
         onPress={handleRepaymentSubmit}
-        color='#1e88e5'
+        color="#1e88e5"
         style={styles.button}
       />
     </View>

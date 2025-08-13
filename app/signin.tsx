@@ -9,7 +9,9 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { useAuth } from "../context/AuthContext";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser, setLoading, setError } from "../features/authSlice";
+import type { RootState } from "../store";
 import { useRouter } from "expo-router";
 import { doc, getDoc } from "firebase/firestore";
 import { db, auth } from "../firebaseConfig";
@@ -18,10 +20,9 @@ import * as Animatable from "react-native-animatable";
 export default function Signin() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  const { login } = useAuth();
+  const dispatch = useDispatch();
   const router = useRouter();
+  const isLoading = useSelector((state: RootState) => state.auth.loading);
 
   const handleLogin = async () => {
     const trimmedPhone = phone.trim();
@@ -35,17 +36,20 @@ export default function Signin() {
     }
 
     const email = `${trimmedPhone}@example.com`;
-    setIsLoading(true);
+    dispatch(setLoading(true));
 
     try {
-      await login(email, password);
-
+      // Replace with your Firebase login logic
+      await auth.signInWithEmailAndPassword(email, password);
       const loggedInUser = auth.currentUser;
       if (!loggedInUser) {
         Alert.alert("Login Error", "User not found after login.");
+        dispatch(setError("User not found after login."));
         return;
       }
-
+      dispatch(
+        setUser({ uid: loggedInUser.uid, email: loggedInUser.email ?? "" })
+      );
       const userDocRef = doc(db, "users", loggedInUser.uid);
       const docSnap = await getDoc(userDocRef);
 
@@ -62,8 +66,9 @@ export default function Signin() {
     } catch (error: any) {
       console.error("Sign-in failed", error.code);
       Alert.alert("Login Error", "Invalid credentials. Please try again.");
+      dispatch(setError(error.message || "Login Error"));
     } finally {
-      setIsLoading(false);
+      dispatch(setLoading(false));
     }
   };
 
@@ -78,7 +83,7 @@ export default function Signin() {
       />
 
       <Animatable.Text
-        animation='fadeInDown'
+        animation="fadeInDown"
         delay={200}
         style={styles.uxMessage}
       >
@@ -88,9 +93,9 @@ export default function Signin() {
       <Text style={styles.label}>Phone Number</Text>
       <TextInput
         style={styles.input}
-        placeholder='Enter phone number'
-        placeholderTextColor='#ccc'
-        keyboardType='phone-pad'
+        placeholder="Enter phone number"
+        placeholderTextColor="#ccc"
+        keyboardType="phone-pad"
         value={phone}
         onChangeText={setPhone}
       />
@@ -98,8 +103,8 @@ export default function Signin() {
       <Text style={styles.label}>Password</Text>
       <TextInput
         style={styles.input}
-        placeholder='Enter password'
-        placeholderTextColor='#ccc'
+        placeholder="Enter password"
+        placeholderTextColor="#ccc"
         secureTextEntry
         value={password}
         onChangeText={setPassword}
@@ -107,9 +112,9 @@ export default function Signin() {
 
       {isLoading ? (
         <Animatable.View
-          animation='pulse'
-          easing='ease-in-out'
-          iterationCount='infinite'
+          animation="pulse"
+          easing="ease-in-out"
+          iterationCount="infinite"
           style={[styles.button, { backgroundColor: "#b0c4de" }]}
         >
           <Text style={styles.buttonText}>Signing In...</Text>

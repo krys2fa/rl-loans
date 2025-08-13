@@ -14,37 +14,44 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "expo-router";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser, setLoading, setError } from "../features/authSlice";
+import type { RootState } from "../store";
 import * as Animatable from "react-native-animatable";
 
 export default function Signup() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
+  const dispatch = useDispatch();
   const router = useRouter();
+  const isLoading = useSelector((state: RootState) => state.auth.loading);
 
   const handleSignup = async () => {
     try {
-      const email = `${phone}@example.com`; // convert phone to email
-      setIsLoading(true);
+      const email = `${phone}@example.com`;
+      dispatch(setLoading(true));
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-
-      // Store user profile in Firestore
+      dispatch(
+        setUser({
+          uid: userCredential.user.uid,
+          email: userCredential.user.email ?? "",
+        })
+      );
       await setDoc(doc(db, "users", userCredential.user.uid), {
         phone,
         createdAt: new Date(),
       });
-
       Alert.alert("Success", "Account created successfully!");
       router.replace("/(tabs)/");
     } catch (error: any) {
       Alert.alert("Signup Error", error.message);
+      dispatch(setError(error.message || "Signup Error"));
     } finally {
-      setIsLoading(false);
+      dispatch(setLoading(false));
     }
   };
 
@@ -59,7 +66,7 @@ export default function Signup() {
       />
 
       <Animatable.Text
-        animation='fadeInDown'
+        animation="fadeInDown"
         delay={200}
         style={styles.uxMessage}
       >
@@ -69,9 +76,9 @@ export default function Signup() {
       <Text style={styles.label}>Phone Number</Text>
       <TextInput
         style={styles.input}
-        placeholder='Enter phone number'
-        placeholderTextColor='#ccc'
-        keyboardType='phone-pad'
+        placeholder="Enter phone number"
+        placeholderTextColor="#ccc"
+        keyboardType="phone-pad"
         value={phone}
         onChangeText={setPhone}
       />
@@ -79,8 +86,8 @@ export default function Signup() {
       <Text style={styles.label}>Password</Text>
       <TextInput
         style={styles.input}
-        placeholder='Enter password'
-        placeholderTextColor='#ccc'
+        placeholder="Enter password"
+        placeholderTextColor="#ccc"
         secureTextEntry
         value={password}
         onChangeText={setPassword}
@@ -88,9 +95,9 @@ export default function Signup() {
 
       {isLoading ? (
         <Animatable.View
-          animation='pulse'
-          easing='ease-in-out'
-          iterationCount='infinite'
+          animation="pulse"
+          easing="ease-in-out"
+          iterationCount="infinite"
           style={[styles.button, { backgroundColor: "#b0c4de" }]}
         >
           <Text style={styles.buttonText}>Signing Up...</Text>
