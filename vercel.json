@@ -1,9 +1,11 @@
 {
   "buildCommand": "npm run build",
-  "installCommand": "npm install",
+  "installCommand": "npm install", 
   "outputDirectory": "web-dist",
   "framework": null,
   "env": {
     "EXPO_ROUTER_APP_ROOT": "app"
-  }
+  },
+  "trailingSlash": false,
+  "cleanUrls": true
 }
