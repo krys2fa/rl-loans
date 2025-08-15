@@ -315,6 +315,7 @@ Optional (local preview): after `npm run build`, serve `web-dist` with any stati
 - Missing env var at runtime: verify all required `EXPO_PUBLIC_*` keys are set in the hosting provider and spelled exactly as in `.env.example`.
 - Router issues on web: ensure `EXPO_ROUTER_APP_ROOT=app` is set during build (configured in `vercel.json` and the build script).
 - Node version errors: set Node 18+ in the host settings or respect `engines.node` in `package.json`.
+- Debug route: visit `/health` on your deployed site to see a minimal page confirming JS loaded and printing key envs.
 
 ## Security Features
 

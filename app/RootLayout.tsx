@@ -29,6 +29,10 @@ export default function RootLayout() {
     <Stack>
       <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
       <Stack.Screen
+        name='health'
+        options={{ headerShown: true, title: "Health" }}
+      />
+      <Stack.Screen
         name='credit-check'
         options={{ headerShown: true, headerTitle: "" }}
       />
