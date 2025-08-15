@@ -27,72 +27,72 @@ export default function RootLayout() {
 
   return (
     <Stack>
-      <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen
-        name='health'
+        name="health"
         options={{ headerShown: true, title: "Health" }}
       />
       <Stack.Screen
-        name='simple-health'
+        name="simple-health"
         options={{ headerShown: true, title: "Simple Health" }}
       />
       <Stack.Screen
-        name='static-debug'
+        name="static-debug"
         options={{ headerShown: true, title: "Static Debug" }}
       />
       <Stack.Screen
-        name='debug-layout'
+        name="debug-layout"
         options={{ headerShown: true, title: "Debug Layout" }}
       />
       <Stack.Screen
-        name='credit-check'
+        name="credit-check"
         options={{ headerShown: true, headerTitle: "" }}
       />
       <Stack.Screen
-        name='loan-history'
+        name="loan-history"
         options={{ headerShown: true, headerTitle: "" }}
       />
       <Stack.Screen
-        name='payment-schedule'
+        name="payment-schedule"
         options={{ headerShown: true, headerTitle: "" }}
       />
       <Stack.Screen
-        name='payments'
+        name="payments"
         options={{ headerShown: true, headerTitle: "" }}
       />
       <Stack.Screen
-        name='support'
+        name="support"
         options={{ headerShown: true, headerTitle: "" }}
       />
       <Stack.Screen
-        name='withdrawals'
+        name="withdrawals"
         options={{ headerShown: true, headerTitle: "" }}
       />
       <Stack.Screen
-        name='signin'
+        name="signin"
         options={{ headerShown: false, headerTitle: "" }}
       />
       <Stack.Screen
-        name='signup'
+        name="signup"
         options={{ headerShown: false, headerTitle: "" }}
       />
       <Stack.Screen
-        name='onboarding/id-back'
+        name="onboarding/id-back"
         options={{ headerShown: false, headerTitle: "" }}
       />
       <Stack.Screen
-        name='onboarding/id-front'
+        name="onboarding/id-front"
         options={{ headerShown: false, headerTitle: "" }}
       />
       <Stack.Screen
-        name='onboarding/selfie'
+        name="onboarding/selfie"
         options={{ headerShown: false, headerTitle: "" }}
       />
       <Stack.Screen
-        name='onboarding/index'
+        name="onboarding/index"
         options={{ headerShown: false, headerTitle: "" }}
       />
-      <Stack.Screen name='+not-found' />
+      <Stack.Screen name="+not-found" />
     </Stack>
   );
 }

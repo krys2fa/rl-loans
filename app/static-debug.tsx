@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 // Completely static component - no hooks, no effects, no imports
 export default function StaticDebug() {
   const renderTime = new Date().toISOString();
-  
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Static Debug Page</Text>
@@ -11,15 +11,11 @@ export default function StaticDebug() {
       <Text style={styles.status}>🟢 React Native Web Working</Text>
       <Text style={styles.status}>🟢 No useEffect hooks</Text>
       <Text style={styles.status}>🟢 No external imports</Text>
-      <Text style={styles.info}>
-        This page should NEVER disappear.
-      </Text>
+      <Text style={styles.info}>This page should NEVER disappear.</Text>
       <Text style={styles.info}>
         If it does, the issue is in Expo Router itself.
       </Text>
-      <Text style={styles.timestamp}>
-        Rendered: {renderTime}
-      </Text>
+      <Text style={styles.timestamp}>Rendered: {renderTime}</Text>
     </View>
   );
 }

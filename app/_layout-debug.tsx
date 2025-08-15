@@ -29,25 +29,25 @@ export default function DebugMainLayout() {
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    alignItems: "center", 
-    justifyContent: "center", 
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
     gap: 12,
     backgroundColor: "#f8f9fa",
     padding: 20,
   },
-  title: { 
-    fontSize: 28, 
-    fontWeight: "bold", 
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
     marginBottom: 20,
-    color: "#2c3e50"
+    color: "#2c3e50",
   },
   note: {
     marginTop: 20,
     fontStyle: "italic",
     textAlign: "center",
-    color: "#7f8c8d"
+    color: "#7f8c8d",
   },
   errorContainer: {
     flex: 1,
@@ -65,5 +65,5 @@ const styles = StyleSheet.create({
   errorText: {
     color: "#c0392b",
     textAlign: "center",
-  }
+  },
 });

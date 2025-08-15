@@ -1,9 +1,9 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
 
 interface Props {
   children: React.ReactNode;
-  fallback?: React.ComponentType<{error: Error}>;
+  fallback?: React.ComponentType<{ error: Error }>;
 }
 
 interface State {
@@ -22,7 +22,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
+    console.error("ErrorBoundary caught an error:", error, errorInfo);
   }
 
   render() {
@@ -35,10 +35,10 @@ export class ErrorBoundary extends React.Component<Props, State> {
         <View style={styles.container}>
           <Text style={styles.title}>Something went wrong</Text>
           <Text style={styles.error}>
-            Error: {this.state.error?.message || 'Unknown error'}
+            Error: {this.state.error?.message || "Unknown error"}
           </Text>
           <Text style={styles.stack}>
-            {this.state.error?.stack || 'No stack trace available'}
+            {this.state.error?.stack || "No stack trace available"}
           </Text>
         </View>
       );
@@ -51,28 +51,28 @@ export class ErrorBoundary extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
-    backgroundColor: '#ffe6e6',
+    backgroundColor: "#ffe6e6",
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#d32f2f',
+    fontWeight: "bold",
+    color: "#d32f2f",
     marginBottom: 16,
   },
   error: {
     fontSize: 16,
-    color: '#d32f2f',
+    color: "#d32f2f",
     marginBottom: 16,
-    textAlign: 'center',
+    textAlign: "center",
   },
   stack: {
     fontSize: 12,
-    color: '#666',
-    fontFamily: 'monospace',
-    backgroundColor: '#f5f5f5',
+    color: "#666",
+    fontFamily: "monospace",
+    backgroundColor: "#f5f5f5",
     padding: 10,
     borderRadius: 4,
     maxHeight: 200,

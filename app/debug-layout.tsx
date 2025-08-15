@@ -23,18 +23,18 @@ export default function DebugLayout() {
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    alignItems: "center", 
-    justifyContent: "center", 
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
     gap: 8,
     backgroundColor: "#e0f0ff",
     padding: 20,
   },
-  title: { 
-    fontSize: 24, 
-    fontWeight: "bold", 
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
     marginBottom: 16,
-    color: "#0066cc"
+    color: "#0066cc",
   },
 });
