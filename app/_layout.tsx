@@ -3,31 +3,64 @@
 import { Provider } from "react-redux";
 import { store } from "../store";
 import { View, Text, StyleSheet } from "react-native";
+import { ErrorBoundary } from "./ErrorBoundary";
+import { useEffect, useState } from "react";
 
 export default function Layout() {
-  // Temporarily bypass Firebase for debugging
-  try {
-    return (
-      <Provider store={store}>
-        <View style={styles.container}>
-          <Text style={styles.title}>Debug Mode - No Firebase</Text>
-          <Text>✅ Redux Store: Working</Text>
-          <Text>✅ React Native Web: Working</Text>
-          <Text>✅ JavaScript Bundle: Loaded</Text>
-          <Text style={styles.subtitle}>
-            If you see this, the blank page was caused by Firebase/AuthProvider
-          </Text>
-        </View>
-      </Provider>
-    );
-  } catch (error) {
+  const [step, setStep] = useState("initializing");
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    console.log("Layout useEffect started");
+    
+    try {
+      setStep("setting up redux");
+      console.log("Redux store:", store);
+      
+      setStep("checking environment");
+      console.log("Environment vars:", {
+        firebase_project_id: process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID,
+        router_app_root: process.env.EXPO_ROUTER_APP_ROOT,
+      });
+      
+      setStep("completed");
+      console.log("Layout setup completed successfully");
+    } catch (err) {
+      console.error("Layout setup error:", err);
+      setError(String(err));
+      setStep("error");
+    }
+  }, []);
+
+  if (error) {
     return (
       <View style={styles.errorContainer}>
-        <Text style={styles.errorTitle}>Layout Error:</Text>
-        <Text style={styles.errorText}>{String(error)}</Text>
+        <Text style={styles.errorTitle}>Layout Setup Error:</Text>
+        <Text style={styles.errorText}>{error}</Text>
       </View>
     );
   }
+
+  return (
+    <ErrorBoundary>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <Text style={styles.title}>Debug Mode - Persistent Version</Text>
+          <Text>Step: {step}</Text>
+          <Text>✅ Redux Store: Working</Text>
+          <Text>✅ React Native Web: Working</Text>
+          <Text>✅ JavaScript Bundle: Loaded</Text>
+          <Text>✅ Error Boundary: Active</Text>
+          <Text style={styles.subtitle}>
+            This version should not disappear. If it does, check browser console.
+          </Text>
+          <Text style={styles.timestamp}>
+            Rendered at: {new Date().toLocaleTimeString()}
+          </Text>
+        </View>
+      </Provider>
+    </ErrorBoundary>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -53,6 +86,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#7f8c8d",
     lineHeight: 20,
+  },
+  timestamp: {
+    marginTop: 10,
+    fontSize: 12,
+    color: "#95a5a6",
   },
   errorContainer: {
     flex: 1,

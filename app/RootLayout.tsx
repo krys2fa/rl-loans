@@ -37,6 +37,10 @@ export default function RootLayout() {
         options={{ headerShown: true, title: "Simple Health" }}
       />
       <Stack.Screen
+        name='static-debug'
+        options={{ headerShown: true, title: "Static Debug" }}
+      />
+      <Stack.Screen
         name='debug-layout'
         options={{ headerShown: true, title: "Debug Layout" }}
       />
