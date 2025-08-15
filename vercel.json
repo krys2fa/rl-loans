@@ -1,0 +1,8 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "web-dist",
+  "framework": null,
+  "env": {
+    "EXPO_ROUTER_APP_ROOT": "app"
+  }
+}

@@ -65,7 +65,7 @@ _TODO: Add screenshots of your app here after launching it. Recommended sections
 - **Database**: Firebase Firestore
 - **Storage**: Firebase Storage
 - **UI Components**: React Native Paper
-- **State Management**: React Context API
+- **State Management**: Redux Toolkit + React Redux
 - **Camera**: Expo Camera with Face Detection
 - **Payments**: Integrated payment processing
 - **Animations**: React Native Reanimated & Animatable
@@ -267,6 +267,54 @@ eas build --platform all --profile production
 eas submit --platform ios
 eas submit --platform android
 ```
+
+## Deploying to Web
+
+This project exports a static web build that can be hosted on any static host. The export command is already wired up:
+
+- Build command: `npm run build` (runs Expo export for web)
+- Output directory: `web-dist`
+
+Before deploying, ensure your `.env` contains the required `EXPO_PUBLIC_*` variables and that you’ve committed your code.
+
+### Deploy to Vercel
+
+1. Push your repo to GitHub, GitLab, or Bitbucket.
+2. In Vercel, import the project from your repo.
+3. Settings during setup:
+   - Framework preset: Other
+   - Build Command: `npm run build`
+   - Output Directory: `web-dist`
+4. Add Environment Variables (Project → Settings → Environment Variables):
+   - `EXPO_ROUTER_APP_ROOT=app`
+   - Your Firebase `EXPO_PUBLIC_FIREBASE_*` vars
+5. Runtime:
+   - Use Node 18+ (defined in `package.json` engines). You can also set it in Vercel Project → Settings → General → Node.js Version.
+6. Deploy. Vercel will run the build and host the static files from `web-dist`.
+
+Notes:
+
+- Re-run deployments when env vars change.
+- If routes 404 after a deep link, ensure the path exists in the exported output. This project uses file-based routes which are statically exported.
+
+### Deploy to Netlify
+
+1. New site → Import from Git.
+2. Build settings:
+   - Build command: `npm run build`
+   - Publish directory: `web-dist`
+3. Add Environment Variables:
+   - `EXPO_ROUTER_APP_ROOT=app`
+   - Your Firebase `EXPO_PUBLIC_FIREBASE_*` vars
+4. Deploy.
+
+Optional (local preview): after `npm run build`, serve `web-dist` with any static server to preview the export locally.
+
+### Troubleshooting
+
+- Missing env var at runtime: verify all required `EXPO_PUBLIC_*` keys are set in the hosting provider and spelled exactly as in `.env.example`.
+- Router issues on web: ensure `EXPO_ROUTER_APP_ROOT=app` is set during build (configured in `vercel.json` and the build script).
+- Node version errors: set Node 18+ in the host settings or respect `engines.node` in `package.json`.
 
 ## Security Features
 
