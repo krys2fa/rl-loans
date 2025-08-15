@@ -4,6 +4,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 import { useAuth } from "../context/AuthContext";
+import { View, Text, StyleSheet } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -21,8 +22,19 @@ export default function RootLayout() {
     }
   }, [loaded, loading]);
 
+  // FIXED: Instead of returning null (which causes blank page), show loading
   if (!loaded || loading) {
-    return null;
+    return (
+      <View style={styles.loadingContainer}>
+        <Text style={styles.loadingText}>Loading App...</Text>
+        <Text style={styles.debugText}>
+          Fonts loaded: {loaded ? "✅" : "⏳"}
+        </Text>
+        <Text style={styles.debugText}>
+          Auth loaded: {!loading ? "✅" : "⏳"}
+        </Text>
+      </View>
+    );
   }
 
   return (
@@ -96,3 +108,24 @@ export default function RootLayout() {
     </Stack>
   );
 }
+
+const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#f5f5f5",
+    padding: 20,
+  },
+  loadingText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 16,
+    color: "#333",
+  },
+  debugText: {
+    fontSize: 14,
+    color: "#666",
+    marginVertical: 4,
+  },
+});
