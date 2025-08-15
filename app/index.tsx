@@ -8,14 +8,14 @@ export default function Index() {
   if (loading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size='large' />
+        <ActivityIndicator size="large" />
       </View>
     );
   }
 
   if (user) {
-    return <Redirect href='/(tabs)/' />;
+    return <Redirect href="/(tabs)" />;
   }
 
-  return <Redirect href='/signin' />;
+  return <Redirect href="/signin" />;
 }

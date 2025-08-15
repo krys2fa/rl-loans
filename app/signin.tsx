@@ -15,6 +15,7 @@ import type { RootState } from "../store";
 import { useRouter } from "expo-router";
 import { doc, getDoc } from "firebase/firestore";
 import { db, auth } from "../firebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import * as Animatable from "react-native-animatable";
 
 export default function Signin() {
@@ -39,8 +40,8 @@ export default function Signin() {
     dispatch(setLoading(true));
 
     try {
-      // Replace with your Firebase login logic
-      await auth.signInWithEmailAndPassword(email, password);
+      // Firebase modular API
+      await signInWithEmailAndPassword(auth, email, password);
       const loggedInUser = auth.currentUser;
       if (!loggedInUser) {
         Alert.alert("Login Error", "User not found after login.");
@@ -58,7 +59,7 @@ export default function Signin() {
         if (!userData?.onboardingCompleted) {
           router.replace("/onboarding");
         } else {
-          router.replace("/(tabs)/");
+          router.replace("/(tabs)");
         }
       } else {
         Alert.alert("Error", "User data not found.");

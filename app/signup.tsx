@@ -46,7 +46,7 @@ export default function Signup() {
         createdAt: new Date(),
       });
       Alert.alert("Success", "Account created successfully!");
-      router.replace("/(tabs)/");
+      router.replace("/(tabs)");
     } catch (error: any) {
       Alert.alert("Signup Error", error.message);
       dispatch(setError(error.message || "Signup Error"));
